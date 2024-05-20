@@ -4,8 +4,7 @@ import requests
 import time
 import pandas as pd
 from unidecode import unidecode
-from bs4 import BeautifulSoup
-from bs4 import ResultSet, Tag
+from bs4 import BeautifulSoup, ResultSet, Tag
 
 DATA_DIRECTORY = "./data"
 WAIT_TIME = 1.5
