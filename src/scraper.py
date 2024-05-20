@@ -1,10 +1,13 @@
 import os
 import re
-import requests
 import time
+
 import pandas as pd
+import requests
+from bs4 import BeautifulSoup
+from bs4 import ResultSet
+from bs4 import Tag
 from unidecode import unidecode
-from bs4 import BeautifulSoup, ResultSet, Tag
 
 DATA_DIRECTORY = "./data"
 WAIT_TIME = 1.5
@@ -19,7 +22,15 @@ TABS = {
 
 
 def format_text(text: str) -> str:
-    """Formata o texto removendo acentos, convertendo para minúsculas e substituindo caracteres especiais."""
+    """Format the text by removing accents, converting to lowercase, and replacing special characters.
+
+    Args:
+        text (str): The text to be formatted.
+
+    Returns:
+        str: The formatted text.
+    """
+
     formatted_text = unidecode(text).lower()
     formatted_text = formatted_text.replace("us$", "usd").replace("r$", "brl")
     formatted_text = re.sub(r"[^\w\s]", "", formatted_text).replace(" ", "_")
@@ -27,10 +38,28 @@ def format_text(text: str) -> str:
 
 
 def format_tag_list(tag_list: ResultSet[Tag]) -> list[str]:
+    """Format a list of tags by removing accents, converting to lowercase, and replacing special characters.
+
+    Args:
+        tag_list (ResultSet[Tag]): A list of BeautifulSoup tags.
+
+    Returns:
+        list[str]: A list of formatted strings.
+    """
+
     return [format_text(tag.get_text(strip=True)) for tag in tag_list]
 
 
 def fetch_url(url: str) -> bytes:
+    """Make a GET request to the provided URL and return the content of the response.
+
+    Args:
+        url (str): The URL to make the request to.
+
+    Returns:
+        bytes: The content of the response.
+    """
+
     try:
         response = requests.get(url)
         response.raise_for_status()
@@ -41,12 +70,31 @@ def fetch_url(url: str) -> bytes:
 
 
 def generate_url(opt_id: int, sub_opt_id: int = 1, year: int | None = None) -> str:
+    """Generate a URL based on the provided IDs.
+
+    Args:
+        opt_id (int): The ID of the option.
+        sub_opt_id (int, optional): The ID of the sub-option. Defaults to 1.
+        year (int, optional): The year. Defaults to None.
+
+    Returns:
+        str: The generated URL.
+    """
+
     params = f"ano={year}&opcao=opt_0{opt_id}&subopcao=subopt_0{sub_opt_id}"
     return BASE_URL + params
 
 
 def get_year_interval(soup: BeautifulSoup):
-    """Obtém o ano de ínicio e de fim que o scraping deve ocorrer."""
+    """Get the start and end year for scraping.
+
+    Args:
+        soup (BeautifulSoup): The BeautifulSoup object.
+
+    Returns:
+        tuple: A tuple containing the start year and end year.
+    """
+
     year_label = soup.select_one(".lbl_pesq").get_text()
     match = re.search(r"Ano: \[(\d+)-(\d+)\]", year_label)
     if match:
@@ -56,7 +104,15 @@ def get_year_interval(soup: BeautifulSoup):
 
 
 def get_sub_options(soup: BeautifulSoup):
-    """Obtém as sub opções disponíveis na página."""
+    """Get the available sub-options on the page.
+
+    Args:
+        soup (BeautifulSoup): The BeautifulSoup object.
+
+    Returns:
+        list: A list of sub-options.
+    """
+
     sub_option_buttons = soup.find_all("button", {"class": "btn_sopt"})
     if not sub_option_buttons:
         return ["dados"]
@@ -67,6 +123,16 @@ def get_sub_options(soup: BeautifulSoup):
 def scrape_page(
     soup: BeautifulSoup, tab_name: str, tab_id: int, start_year: int, end_year: int
 ):
+    """Scrape a page.
+
+    Args:
+        soup (BeautifulSoup): The BeautifulSoup object of the page.
+        tab_name (str): The name of the tab.
+        tab_id (int): The ID of the tab.
+        start_year (int): The start year for scraping.
+        end_year (int): The end year for scraping.
+    """
+
     for opt_id, sub_option in enumerate(get_sub_options(soup)):
         file_path = f"{DATA_DIRECTORY}/{tab_name}_{sub_option}.csv"
         if os.path.exists(file_path):
@@ -137,6 +203,8 @@ def scrape_page(
 
 
 def scrape_all_pages():
+    """Scrape all pages."""
+
     for tab_name, tab_id in TABS.items():
         url = generate_url(tab_id)
         content = fetch_url(url)

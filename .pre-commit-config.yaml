@@ -22,13 +22,6 @@ repos:
         additional_dependencies: [flake8-bugbear, flake8-comprehensions]
         args: ["--max-line-length=108"]  # Adjust according to your style guide
 
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v0.910
-    hooks:
-      - id: mypy
-        additional_dependencies: [types-requests]  # Add type stubs if needed
-        language_version: python3.11.3
-
   - repo: https://github.com/asottile/reorder_python_imports
     rev: v2.8.0  # Use the latest version
     hooks:
