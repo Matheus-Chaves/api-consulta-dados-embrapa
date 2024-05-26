@@ -4,34 +4,34 @@ Projeto para entrega do Tech Challenge do primeiro módulo da Pós em Machine Le
 
 ## Arquitetura do Projeto
 
-![Arquitetura do Projeto](arquiteturatechchallenge.png)
+![arquiteturatechchallenge](https://github.com/bpcavalcante/api-consulta-dados-embrapa/assets/69259703/992b1cf2-8cac-407f-bad6-cd38ba7a764a)
 
-## Como Executar o Projeto
+## Como executar o projeto
 
 ### 1. Inicialize e Ative o Ambiente Virtual
 
-    ```bash
+```bash
     python3 -m venv venv
-    # Para Windows
+    # Windows
     venv\Scripts\activate
-    # Para Linux
+    # Linux
     source venv/bin/activate
-    ```
+```
 
 ### 2. Instale as Dependências do Projeto
 
-    ```bash
+```bash
     pip install -r requirements.txt
-    ```
+```
 
 ### 3. Gere as Chaves Assimétricas
 
 Para a autenticação usando JWT com chaves assimétricas, você precisa gerar um par de chaves RSA (privada e pública). Use os comandos abaixo:
 
-    ```bash
+```bash
     openssl genpkey -algorithm RSA -out private_key.pem -pkeyopt rsa_keygen_bits:2048
     openssl rsa -pubout -in private_key.pem -out public_key.pem
-    ```
+```
 
 ### 4. Testar se as Chaves Estão Funcionando
 
@@ -39,15 +39,15 @@ Certifique-se de que os arquivos `private_key.pem` e `public_key.pem` estão no 
 
 ### 5. Rode o Código para Realizar o Web Scraping
 
-    ```bash
+```bash
     python3 src/scraper.py
-    ```
+```
 
 ### 6. Inicialize a API
 
-    ```bash
+```bash
     uvicorn src.main:app --reload
-    ```
+```
 
 ### 7. Testando a API com Postman
 
@@ -63,12 +63,13 @@ Certifique-se de que os arquivos `private_key.pem` e `public_key.pem` estão no 
      - Value: `application/json`
 4. Envie a requisição.
 5. Você deve receber uma resposta com um token JWT, semelhante a:
-   ```json
+
+```json
    {
      "access_token": "SEU_TOKEN_JWT_GERADO",
      "token_type": "bearer"
    }
-   ```
+```
 6. Copie o valor de `access_token`.
 
 #### Usar o Token para Acessar um Endpoint Protegido:
@@ -88,8 +89,8 @@ Certifique-se de que os arquivos `private_key.pem` e `public_key.pem` estão no 
 
 4. Você deve receber uma resposta semelhante a:
 
-   ```json
+```json
    {
      "message": "Hello user"
    }
-   ```
+```
