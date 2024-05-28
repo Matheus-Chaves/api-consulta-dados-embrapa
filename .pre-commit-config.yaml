@@ -1,0 +1,28 @@
+# .pre-commit-config.yaml
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.3.0  # Use the latest version
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: check-merge-conflict
+
+  - repo: https://github.com/psf/black
+    rev: 23.3.0  # Use the latest version
+    hooks:
+      - id: black
+        language_version: python3.11.3  # Specify your Python version
+
+  - repo: https://github.com/pycqa/flake8
+    rev: 6.0.0  # Use the latest version
+    hooks:
+      - id: flake8
+        additional_dependencies: [flake8-bugbear, flake8-comprehensions]
+        args: ["--max-line-length=108"]  # Adjust according to your style guide
+
+  - repo: https://github.com/asottile/reorder_python_imports
+    rev: v2.8.0  # Use the latest version
+    hooks:
+      - id: reorder-python-imports
