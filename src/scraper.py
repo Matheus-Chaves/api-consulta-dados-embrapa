@@ -1,13 +1,14 @@
 import os
 import re
 import time
-
 import pandas as pd
 import requests
-from bs4 import BeautifulSoup
-from bs4 import ResultSet
-from bs4 import Tag
+from bs4 import BeautifulSoup, ResultSet, Tag
 from unidecode import unidecode
+from logging import getLogger
+import src.state
+
+logger = getLogger("uvicorn.debug")
 
 DATA_DIRECTORY = "./data"
 WAIT_TIME = 1.5
@@ -136,7 +137,15 @@ def scrape_page(
     for opt_id, sub_option in enumerate(get_sub_options(soup)):
         file_path = f"{DATA_DIRECTORY}/{tab_name}_{sub_option}.csv"
         if os.path.exists(file_path):
+            logger.info(
+                f"Scraping in the '{tab_name} - {sub_option}' tab has already been done. "
+                "Skipping to the next item."
+            )
             continue
+
+        logger.info(
+            f"Getting data from {start_year} to {end_year} at '{tab_name} - {sub_option}'"
+        )
 
         rows = []
 
@@ -199,18 +208,26 @@ def scrape_page(
         grouped_df.reset_index(inplace=True)
         os.makedirs(DATA_DIRECTORY, exist_ok=True)
         grouped_df.to_csv(file_path, index=False)
-        print(f"Arquivo {file_path} criado com sucesso.")
+        logger.info(
+            f"File '{file_path}' created successfully. Access the data via API."
+        )
 
 
 def scrape_all_pages():
     """Scrape all pages."""
+
+    logger.info("Web Scraping at http://vitibrasil.cnpuv.embrapa.br/ started")
 
     for tab_name, tab_id in TABS.items():
         url = generate_url(tab_id)
         content = fetch_url(url)
         soup = BeautifulSoup(content, "html.parser")
         start_year, end_year = get_year_interval(soup)
+        logger.info(f"Scraping {tab_name}: {url}")
         scrape_page(soup, tab_name, tab_id, start_year, end_year)
+
+    logger.info("Scraping completed. The API is 100% ready to use")
+    src.state.is_scraping_completed = True
 
 
 if __name__ == "__main__":
