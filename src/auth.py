@@ -1,8 +1,11 @@
 import time
-import jwt
-from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
 from typing import Dict
+
+import jwt
+from fastapi import Depends
+from fastapi import HTTPException
+from fastapi import status
+from fastapi.security import OAuth2PasswordBearer
 
 # Carregar as chaves
 with open("private_key.pem", "r") as f:
@@ -13,12 +16,14 @@ with open("public_key.pem", "r") as f:
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/token")
 
+
 # Função utilitária para criar um token JWT
 def create_jwt_token(data: Dict, expires_in: int = 3600):
     payload = data.copy()
     payload.update({"exp": time.time() + expires_in})
     token = jwt.encode(payload, private_key, algorithm="RS256")
     return token
+
 
 # Função utilitária para decodificar um token JWT
 def decode_jwt_token(token: str):
@@ -37,6 +42,7 @@ def decode_jwt_token(token: str):
             detail="Token inválido",
             headers={"WWW-Authenticate": "Bearer"},
         )
+
 
 # Dependência para obter o usuário atual
 def get_current_user(token: str = Depends(oauth2_scheme)):

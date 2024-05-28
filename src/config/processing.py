@@ -20,7 +20,8 @@ ROUTE_CONFIG = {
         "/americanas-e-hibridas": {
             "file_name": "processamento_americanas_e_hibridas.csv",
             "summary": "Processamento de uvas americanas e híbridas",
-            "description": "Retorna dados sobre uvas americanas e híbridas processadas no Rio Grande do Sul.",
+            "description": "Retorna dados sobre uvas americanas e híbridas processadas"
+            " no Rio Grande do Sul.",
         },
     },
 }

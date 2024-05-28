@@ -1,10 +1,15 @@
-from contextlib import asynccontextmanager
-from fastapi import FastAPI, HTTPException, Depends
-from src.router.api import router
-from src.config.docs import api_description, tags_metadata
-from src.scraper import scrape_all_pages
-from src.auth import get_current_user
 import threading
+from contextlib import asynccontextmanager
+
+from fastapi import Depends
+from fastapi import FastAPI
+from fastapi import HTTPException
+
+from src.auth import get_current_user
+from src.config.docs import api_description
+from src.config.docs import tags_metadata
+from src.router.api import router
+from src.scraper import scrape_all_pages
 
 lock = threading.Lock()
 
@@ -27,6 +32,7 @@ async def lifespan(app: FastAPI):
     threading.Thread(target=scrape_all_pages_with_lock).start()
     yield
 
+
 app = FastAPI(
     debug=True,
     title="Tech Challenge - Dados da Vitivinicultura da Embrapa",
@@ -46,7 +52,8 @@ app = FastAPI(
     tags=["Ajuda"],
     summary="Busca os dados da API via web scraping",
     description="Busca e salva os dados sem bloquear outros endpoints da API.\n\n"
-    "Deve ser utilizado em caso de erros por **falta de arquivos e/ou indisponibilidade do site da Embrapa**.",
+    "Deve ser utilizado em caso de erros por **falta de arquivos e/ou"
+    " indisponibilidade do site da Embrapa**.",
     responses={"503": {"description": "Scraping is already in progress."}},
     dependencies=[Depends(get_current_user)],
 )

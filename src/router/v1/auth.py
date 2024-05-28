@@ -1,8 +1,13 @@
-from src.auth import create_jwt_token, get_current_user
-from fastapi import Depends, APIRouter
 from typing import Dict
 
-router = APIRouter(prefix='/auth', tags=["Autenticação"])
+from fastapi import APIRouter
+from fastapi import Depends
+
+from src.auth import create_jwt_token
+from src.auth import get_current_user
+
+router = APIRouter(prefix="/auth", tags=["Autenticação"])
+
 
 @router.post("/token")
 async def generate_token():

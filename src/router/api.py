@@ -1,5 +1,11 @@
 from fastapi import APIRouter
-from src.router.v1 import auth, production, processing, commercialization, importation, exportation
+
+from src.router.v1 import auth
+from src.router.v1 import commercialization
+from src.router.v1 import exportation
+from src.router.v1 import importation
+from src.router.v1 import processing
+from src.router.v1 import production
 
 router = APIRouter(prefix="/api/v1")
 

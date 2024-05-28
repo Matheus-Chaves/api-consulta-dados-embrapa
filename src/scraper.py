@@ -1,11 +1,15 @@
 import os
 import re
 import time
+from logging import getLogger
+
 import pandas as pd
 import requests
-from bs4 import BeautifulSoup, ResultSet, Tag
+from bs4 import BeautifulSoup
+from bs4 import ResultSet
+from bs4 import Tag
 from unidecode import unidecode
-from logging import getLogger
+
 import src.state
 
 logger = getLogger("uvicorn.debug")

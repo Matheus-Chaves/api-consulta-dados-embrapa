@@ -52,8 +52,12 @@ tags_metadata = [
 
 api_description = (
     "Esta API fornece dados sobre a vitivinicultura coletados pela Embrapa.\n\n"
-    "Através das rotas abaixo, pode-se acessar informações referentes à quantidade de uvas processadas, produção e comercialização de vinhos, suco e derivados provenientes do Estado do Rio Grande do Sul, além dos dados de importações e exportações dos produtos da vitivinicultura.\n\n"
-    "Para mais informações, acesse o [README.md do projeto](https://github.com/matheus-chaves/api-consulta-dados-embrapa/blob/develop/README.md).\n\n"
+    "Através das rotas abaixo, pode-se acessar informações referentes à quantidade"
+    " de uvas processadas, produção e comercialização de vinhos, suco e derivados provenientes"
+    " do Estado do Rio Grande do Sul, além dos dados de importações e exportações dos produtos"
+    " da vitivinicultura.\n\n"
+    "Para mais informações, acesse o [README.md do projeto]"
+    "(https://github.com/matheus-chaves/api-consulta-dados-embrapa/blob/develop/README.md).\n\n"
     "### Outras dúvidas? Contate os membros do grupo 39:\n"
     "- [Bruno Pinheiro Mendes](mailto:brupmendes@icloud.com)\n"
     "- [Matheus Fonseca Chaves](mailto:matheusfonsecachaves@gmail.com)\n"

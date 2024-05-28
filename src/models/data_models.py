@@ -1,5 +1,9 @@
+from typing import Any
+from typing import Dict
+from typing import List
+
 from pydantic import BaseModel
-from typing import Any, List, Dict
+
 
 class DataModel(BaseModel):
     data: List[Dict[str, Any]]

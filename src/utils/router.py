@@ -1,7 +1,10 @@
-from fastapi import APIRouter, HTTPException, Depends
-from src.utils.data_loader import load_csv_data
-from src.config.responses import RESPONSES
+from fastapi import APIRouter
+from fastapi import Depends
+from fastapi import HTTPException
+
 from src.auth import get_current_user
+from src.config.responses import RESPONSES
+from src.utils.data_loader import load_csv_data
 
 
 def create_route(router: APIRouter, endpoint: str, config: dict):
@@ -19,5 +22,5 @@ def create_route(router: APIRouter, endpoint: str, config: dict):
         description=config["description"],
         methods=["GET"],
         responses=RESPONSES,
-        dependencies=[Depends(get_current_user)]
+        dependencies=[Depends(get_current_user)],
     )

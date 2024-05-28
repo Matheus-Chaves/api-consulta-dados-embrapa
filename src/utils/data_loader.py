@@ -1,7 +1,9 @@
-import pandas as pd
 import os
+
+import pandas as pd
 from fastapi import status
 from fastapi.responses import JSONResponse
+
 from src.models.data_models import DataModel
 
 

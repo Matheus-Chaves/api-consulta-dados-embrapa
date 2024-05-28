@@ -5,7 +5,8 @@ ROUTE_CONFIG = {
         "/": {
             "file_name": "producao_dados.csv",
             "summary": "Dados de produção da vitivinicultura.",
-            "description": "Retorna os dados relacionados à produção de vinhos, sucos e derivados do Rio Grande do Sul."
+            "description": "Retorna os dados relacionados à produção de vinhos,"
+            " sucos e derivados do Rio Grande do Sul.",
         }
-    }
+    },
 }
