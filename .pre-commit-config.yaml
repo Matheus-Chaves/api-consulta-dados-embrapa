@@ -13,14 +13,14 @@ repos:
     rev: 23.3.0  # Use the latest version
     hooks:
       - id: black
-        language_version: python3.11.3  # Specify your Python version
+        language_version: python3
 
   - repo: https://github.com/pycqa/flake8
     rev: 6.0.0  # Use the latest version
     hooks:
       - id: flake8
         additional_dependencies: [flake8-bugbear, flake8-comprehensions]
-        args: ["--max-line-length=108"]  # Adjust according to your style guide
+        args: ["--max-line-length=108", "--extend-immutable-calls=Depends"]  # Adjust according to your style guide
 
   - repo: https://github.com/asottile/reorder_python_imports
     rev: v2.8.0  # Use the latest version
