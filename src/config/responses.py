@@ -36,11 +36,11 @@ RESPONSES: Dict[str, Dict[str, Any]] = {
         "model": ErrorResponse,
         "description": "User unauthorized.",
     },
-    status.HTTP_403_FORBIDDEN: {
-        "model": ErrorResponse,
-        "description": "Not enough privileges",
-    },
-    status.HTTP_500_INTERNAL_SERVER_ERROR: {
+    # status.HTTP_403_FORBIDDEN: {
+    #     "model": ErrorResponse,
+    #     "description": "Not enough privileges",
+    # },
+    status.HTTP_404_NOT_FOUND: {
         "model": ErrorResponse,
         "description": "Data for the endpoint in question was not found."
         "Please try scraping again or contact a project contributor.",

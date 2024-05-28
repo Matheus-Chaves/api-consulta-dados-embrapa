@@ -22,7 +22,7 @@ def load_csv_data(file_name: str) -> DataModel:
             # If scraping has already completed, it means that an error occurred
             # in the process.
             return JSONResponse(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                status_code=status.HTTP_404_NOT_FOUND,
                 content={
                     "message": "Data for the endpoint in question was not found."
                     "Please try scraping again or contact a project contributor."
