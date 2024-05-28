@@ -11,7 +11,7 @@ with open("private_key.pem", "r") as f:
 with open("public_key.pem", "r") as f:
     public_key = f.read()
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/token")
 
 # Função utilitária para criar um token JWT
 def create_jwt_token(data: Dict, expires_in: int = 3600):
